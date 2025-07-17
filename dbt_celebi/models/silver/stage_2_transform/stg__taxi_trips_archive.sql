@@ -30,8 +30,8 @@ where 1=1
 {% if is_incremental() %}
 and (
 timestamp_trunc(trip_start_timestamp, month) >= cast('{{ max_timestamp }}' as timestamp)
-and timestamp_trunc(trip_start_timestamp, month) <= cast(timestamp_trunc(date_sub(current_date(), interval 5 year), month) as timestamp)
+and timestamp_trunc(trip_start_timestamp, month) < cast(timestamp_trunc(date_sub(current_date(), interval 5 year), month) as timestamp)
 )
 {% else %}
-and timestamp_trunc(trip_start_timestamp, month) <= cast(timestamp_trunc(date_sub(current_date(), interval 5 year), month) as timestamp)
+and timestamp_trunc(trip_start_timestamp, month) < cast(timestamp_trunc(date_sub(current_date(), interval 5 year), month) as timestamp)
 {% endif %}
