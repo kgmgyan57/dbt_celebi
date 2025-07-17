@@ -5,4 +5,3 @@ sources:
     dataset: time_landing
     tables:
       - name: taxi_trips_raw
-# -- dottime-bronze.time_landing.taxi_trips_raw
