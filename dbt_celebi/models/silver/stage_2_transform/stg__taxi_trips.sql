@@ -5,8 +5,8 @@
         incremental_startegy='merge',
         unique_key=['unique_key'],
         partition_by={
-            "field": "trip_start_timestamp",
-            "data_type": "timestamp",
+            "field": "trip_start_date",
+            "data_type": "date",
             "granularity": "day"
         },
         cluster_by = "company",
@@ -22,6 +22,8 @@
 {% endif %}
 
 select *,
+date(trip_start_timestamp) trip_start_date,
+date(trip_end_timestamp) trip_end_date,
 timestamp(format_timestamp('%Y-%m-%d %H:%M:%S', current_timestamp())) as dbt_created_at,
 timestamp(format_timestamp('%Y-%m-%d %H:%M:%S', current_timestamp())) as dbt_updated_at,
 from {{ ref('stg__taxi_trips_raw') }}
