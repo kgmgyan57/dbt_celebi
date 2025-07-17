@@ -1,5 +1,5 @@
 {{ config(
-    dataset = "time_landing_dbt_transform",
+    dataset = "landing_dbt_transform",
     materialized = "view",
     unique_key=['unique_key'],
     tags = ["taxi_trips"],

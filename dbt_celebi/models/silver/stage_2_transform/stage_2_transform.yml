@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: stg__taxi_trips
+    tests:
+      - unique:
+          column_name: "unique_key"
+  - name: stg__taxi_trips_archive
+    tests:
+      - unique:
+          column_name: "unique_key"
