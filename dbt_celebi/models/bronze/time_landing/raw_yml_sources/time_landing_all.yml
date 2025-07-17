@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: chicago_taxi_trips
+    dataset: time_landing
+    tables:
+      - name: taxi_trips_raw
+# -- dottime-bronze.time_landing.taxi_trips_raw
