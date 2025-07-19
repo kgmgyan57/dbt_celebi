@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: dim_dates
+    tests:
+      - unique:
+          column_name: "date"
