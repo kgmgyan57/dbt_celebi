@@ -1,0 +1,8 @@
+version: 2
+
+macros:
+  - name: get_max_timestamp
+    description: '{{ doc("get_max_timestamp") }}'
+  - name: f_is_holiday
+    description: '{{ doc("is_holiday") }}'
+
