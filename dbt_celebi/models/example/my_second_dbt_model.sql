@@ -3,4 +3,6 @@
 
 select *
 from {{ ref('my_first_dbt_model') }}
-where id = 1
+where 1=1
+and id = 1
+-- dummy push
