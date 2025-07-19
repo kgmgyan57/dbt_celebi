@@ -1,0 +1,13 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'build',
+    '-t',
+    'us-docker.pkg.dev/$PROJECT_ID/dottime-dbt-celebi/dbt-celebi:prod',
+    'dbt_celebi/.'
+  ]
+images: [
+  "us-docker.pkg.dev/$PROJECT_ID/dottime-dbt-celebi/dbt-celebi:prod"
+]
+options:
+  automapSubstitutions: true
