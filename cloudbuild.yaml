@@ -11,3 +11,4 @@ images: [
 ]
 options:
   automapSubstitutions: true
+  logging: CLOUD_LOGGING_ONLY
