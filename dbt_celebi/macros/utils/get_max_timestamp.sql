@@ -1,8 +1,8 @@
-{%- macro get_max_timestamp(last_update_column) %}
+{%- macro get_max_timestamp(last_updated_at) %}
 
     {% set max_ts_query %}
 
-        select COALESCE(MAX(CAST({{ last_update_column }} AS DATETIME)), CAST('2000-01-01' AS DATETIME)) as ts_max
+        select COALESCE(MAX(CAST({{ last_updated_at }} AS DATETIME)), CAST('2010-01-01' AS DATETIME)) as ts_max
 
         from {{ this }}
     {% endset %}
@@ -11,7 +11,7 @@
     {% if execute %}
         {{ return (results.columns[0].values()[0]) }}
     {% else %}
-        {{ return ('2000-01-01') }}
+        {{ return ('2010-01-01') }}
     {% endif %}
 
 {%- endmacro -%}

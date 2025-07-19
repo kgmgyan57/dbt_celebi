@@ -54,3 +54,9 @@ vars:
   incremental_interval_hour_id: 7
   incremental_interval_hour_my: 8
   incremental_interval_hour_ph: 8
+
+# Run Start & Complete Hooks
+
+# Like the pre- and post- hooks above, the on-run-start and on-run-end configs
+# make it possible to run SQL at the very beginning, and very end of a dbt run.
+# trunk-ignore(yamllint/empty-values)

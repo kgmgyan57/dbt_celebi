@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: fact_taxi_trips
+    tests:
+      - unique:
+          column_name: "unique_key"
