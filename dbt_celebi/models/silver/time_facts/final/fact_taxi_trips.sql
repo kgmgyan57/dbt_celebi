@@ -37,6 +37,28 @@ select
   cast(coalesce(company, 'NA') as string) as company,
   cast(trip_start_date as date) as trip_start_date,
   cast(trip_end_date as date) as trip_end_date,
+    -- Business calculations
+  case 
+        when trip_miles > 0 then fare / trip_miles
+        else null
+  end as fare_per_mile,
+  case 
+        when trip_seconds > 0 then (trip_miles * 3600) / trip_seconds
+        else null
+  end as avg_speed_mph,
+    -- trip categorization
+  case 
+    when trip_miles <= 2 then '1. short'
+    when trip_miles <= 10 then '2. medium'
+    when trip_miles <= 25 then '3. long'
+    else '4. very_long'
+  end as trip_distance_category,
+  case 
+    when extract(hour from trip_start_timestamp) between 6 and 9 then 'morning_rush'
+    when extract(hour from trip_start_timestamp) between 17 and 19 then 'evening_rush'
+    when extract(hour from trip_start_timestamp) between 22 and 5 then 'night'
+    else 'regular'
+  end as trip_traffic_category,
   timestamp(format_timestamp('%Y-%m-%d %H:%M:%S', current_timestamp())) as dbt_created_at,
   timestamp(format_timestamp('%Y-%m-%d %H:%M:%S', current_timestamp())) as dbt_updated_at,
 from {{ ref('stg__taxi_trips') }}
