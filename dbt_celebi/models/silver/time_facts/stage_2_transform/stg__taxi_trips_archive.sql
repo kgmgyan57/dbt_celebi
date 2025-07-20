@@ -14,6 +14,7 @@
         tags = ["fact_trips_archive"],
         merge_exclude_columns = ['dbt_created_at'],
         on_schema_change = "append_new_columns",
+        full_refresh = false
     )
 }}
 

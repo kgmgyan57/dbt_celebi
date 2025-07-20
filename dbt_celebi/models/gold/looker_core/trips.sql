@@ -17,16 +17,28 @@
 }}
 
 {% if is_incremental() %}
-    {% set start_date = date(get_max_timestamp(last_updated_at='trip_start_date')) %}
+    {% set max_timestamp = get_max_timestamp(last_updated_at='trip_start_date') %}
 {% endif %}
 
 select
-  to_hex(sha256(concat(taxi_id, '|', payment_type, '|', company, '|', format_date('%Y%m%d',trip_start_date)))) as trips_sk,
-  trip_start_date,
-  trip_end_date,
-  taxi_id,
-  payment_type,
-  company,
+  to_hex(sha256(concat(
+    ft2.taxi_id, '|', 
+    ft2.payment_type, '|', 
+    ft2.company, '|', 
+    format_date('%Y%m%d', ft2.trip_start_date), '|', 
+    format_date('%Y%m%d', ft2.trip_end_date), '|',
+    cast(dates.is_holiday as string), '|',
+    ft2.trip_distance_category, '|',
+    ft2.trip_traffic_category
+  ))) as trips_sk,
+  ft2.trip_start_date,
+  ft2.trip_end_date,
+  ft2.taxi_id,
+  ft2.payment_type,
+  ft2.company,
+  dates.is_holiday,
+  ft2.trip_distance_category,
+  ft2.trip_traffic_category,
   count(unique_key) as total_rides,
   sum(trip_seconds) as trip_seconds,
   sum(trip_miles) as trip_miles,
@@ -35,9 +47,11 @@ select
   sum(tips) as tips,
   sum(extras) as extras,
   sum(trip_total) as trip_total
-from {{ ref('fact_taxi_trips') }}
+from {{ ref('fact_taxi_trips') }} ft2
+left join {{ ref('dates') }} dates
+on dates.date = ft2.trip_start_date
 where 1=1
 {% if is_incremental() %}
-and trip_start_date >= start_date
+and trip_start_date >= date(cast('{{ max_timestamp }}' as timestamp))
 {% endif %}
 group by all
