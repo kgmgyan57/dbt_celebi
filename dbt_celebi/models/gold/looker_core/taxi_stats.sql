@@ -18,11 +18,11 @@ with trip_intervals as (
       lag(trip_end_timestamp) over (partition by taxi_id order by trip_start_timestamp) as prev_trip_end
     from {{ ref('fact_taxi_trips') }}
     where trip_seconds is not null
-)
+),
 
 overwork_sessions as (
   select *
-  from taxi_shifts_base
+  from trip_intervals
   where timestamp_diff(trip_start_timestamp, prev_trip_end, hour) < 8
 )
 
