@@ -41,7 +41,8 @@ select
   timestamp(format_timestamp('%Y-%m-%d %H:%M:%S', current_timestamp())) as dbt_updated_at,
 from {{ ref('stg__taxi_trips') }}
 where 1=1
-and (trip_end_timestamp is not null or coalesce(trip_total, 0.0) > 0)
+and trip_end_timestamp is not null 
+and coalesce(trip_total, 0.0) > 0
 {% if is_incremental() %}
 and trip_start_date >= date(cast('{{ max_timestamp }}' as timestamp))
 {% endif %}
