@@ -110,7 +110,7 @@ an immutable container and executed in a controlled cloud environment.
 
 * Project configuration lives in `dbt_project.yml`.
 * Schema names for bronze/silver/gold are defined under
-  `models.duckdb_analytics` in the project file.
+  `models.dbt_celebi` in the project file.
 * Source YAML files for the bronze layer are located alongside the models
   (e.g. `models/bronze/time_landing/raw_yml_sources/`).
 
