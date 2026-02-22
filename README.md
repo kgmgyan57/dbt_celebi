@@ -4,7 +4,7 @@ dbt project for Celebi analytics using a medallion layout:
 
 - `bronze`: raw source‑aligned views (time_landing, taxi trip feeds, etc.)
 - `silver`: conformed dimensions and topic facts (time dimensions, taxi trip facts)
-- `gold`: business‑facing marts for performance, customer analysis and Looker core
+- `gold`: business‑facing marts for performance, rides analysis and Looker core
 
 ---
 
